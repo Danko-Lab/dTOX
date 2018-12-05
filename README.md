@@ -119,7 +119,7 @@ To use this solution, type:
 
 How to download motif information from the CIS-BP database (http://cisbp.ccbr.utoronto.ca/)
 
-![Hi](https://github.com/Danko-Lab/dREG/blob/master/imgs/cisbp-download.png?v=4&s=600 "Download from CIS-BP")
+![Hi](https://raw.githubusercontent.com/Danko-Lab/dTOX/master/imgs/cisbp-download.png?v=4&s=600 "Download from CIS-BP")
 
 
 ## 2) TF binding predict
