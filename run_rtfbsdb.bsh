@@ -1,0 +1,33 @@
+#!/usr/bin/bash
+
+if [ "$#" -lt 4 ]; then
+    echo ""
+    echo "USAGE: bash run_rtfbsdb.bsh species cisbp_zip genome_2bit TFBS_output_dir [cpu_cores]"
+    echo ""
+    echo "species	      -- any names for the species."
+    echo "cisbp_zip	      -- The zip file including motif list and PWM files. (downloaded from cis-bp)."
+    echo "genome_2bit     -- The 2 bit file of genome, e.g. hg19.2bit"
+    echo "TFBS_output_dir -- The path to output the TFBS bed files for each motif define in cisbp_zip"
+    echo "[cpu_cores]     -- [optional, default=1] indicating how many CPU cores can be used."    
+    echo ""
+   
+    exit 1
+fi
+
+pushd `dirname $0` > /dev/null
+bsh_path=`pwd`
+popd > /dev/null
+
+species=$1
+cisbp=$2
+genome_file=$3
+output_dir=$4
+cpucores=1
+
+if [ "$#" -gt 4 ]; then
+#	[[ $5 !~ ^?[0-9]+$ ]]
+	cpucores=$5
+fi
+
+echo "Using: R --vanilla --slave --args $species $cisbp $genome_file $output_dir $cpucores < $bsh_path/run_rtfbsdb.R"
+R --vanilla --slave --args $bsh_path $species $cisbp $genome_file $output_dir $cpucores < $bsh_path/run_rtfbsdb.R
