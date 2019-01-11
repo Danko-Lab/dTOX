@@ -88,10 +88,8 @@ Users should change to the directory containing this README.md file, and can the
 
 Get the dTOX models
 -------------------
-Pre-trained models that can be used to predict TF binding status across the genome are availiable in mammals. Get the appropriate model for your system here: https://github.com/Danko-Lab/dREG-Model
-
-or download the newest model from here:
-<span style="color:blue"> *ftp://cbsuftp.tc.cornell.edu/danko/hub/dtox.models/* </span>
+Pre-trained models that can be used to predict TF binding status across the genome are availiable in mammals. Download the newest models and TFBS data set from here:
+<span style="color:blue"> *ftp://cbsuftp.tc.cornell.edu/danko/hub/dTOX/* </span>
 
 
 Usage instructions:
