@@ -9,7 +9,7 @@ We provide a computational gateway to run dTOX on GPU server, the users don't ne
 
 https://dreg.dnasequence.org/
 
-In the online service, dTOX only provide the service for 4 mammals: (human/hg19, mouse/mm10, horse/euuCab2, dog/canFam3). If your studies are not limited to these species, you have to install the dTOX pipeline and run your data locally. 
+In the online service, dTOX only provide the service for 4 mammals: (human/hg19, mouse/mm10). If your studies are not limited to these species, you have to install the dTOX pipeline and run your data locally. 
 
 Before you run your data on the dREG gateway, please check the server status [here](https://github.com/Danko-Lab/dREG/blob/master/gateway-update.md).
 
