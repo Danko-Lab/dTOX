@@ -126,28 +126,24 @@ How to download motif information from the CIS-BP database (http://cisbp.ccbr.ut
 
 To use this solution, type: 
 
-    bash run_dTOX.bsh pretrained_model TFBS_folder plus_strand_bw minus_strand_bw out_prefix cpu_cores [gpu_id]
+    bash run_dTOX.bsh hg19 seq_type plus_strand_bw minus_strand_bw out_prefix gpu_cores cpu_cores
 
-    pretrained_model-- pre-trained model downloaded from ftp://cbsuftp.tc.cornell.edu/danko/hub/dtox.models/. 
-    TFBS_dir        -- TFBS bed files scaned by RTFBSDB across the whole genome
+    Species         -- Currently only hg19 
+    Sequeue Type    -- ATAC-seq, DNase-1-seq or PRO-seq 
     plus_strand.bw	-- Seqence data (plus strand).  Read counts (not normalized) formatted as a bigWig file.
     minus_strand.bw	-- Seqence data (minus strand). Read counts (not normalized) formatted as a bigWig file.
     out_prefix      -- The prefix of the output file.
-    cpu_cores       -- [optional, default=1] indicating how many CPU cores can be used.
-    gpu_id          -- [optional, default=NA] indicating GPU id when multiple GPU cards are available.
+    gpu_cores       -- [optional, default=1] indicating how many GPU cores can be used.
+    cpu_cores       -- [optional, default=16] indicating how many CPU cores can be used.
 
 
 For example, to run dTOX on the ATAC-seq data, use:
 
-    bash run_dTOX.bsh model/kg_atac_model_v1_20181205.rdata TFBS/species atac.plus.bw atac.minus.bw atac.out 16 1
+    bash run_dTOX.bsh hg19 ATAC-seq  atac.plus.bw atac.minus.bw atac.out 1 16
 
-Two files below are generated in this solution:  
+One file below is generated in this solution:  
 
-1. <out_prefix>.run_dTOX.peak.full.bed.gz: 
-
-    full peak information, including peak position, max score, probability, center.
-
-2. <out_prefix>.run_dTOX.bound.bed.gz:
+1. <out_prefix>.dTOX.bound.bed.gz:
 
     reduced peak information, only including peak position, max score.
 
