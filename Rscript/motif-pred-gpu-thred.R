@@ -56,7 +56,6 @@ PredictOnRtfbsdb <- function( def.ncores=4 )
 		if(file.exists( file.ret.bed ))
 			return( -1 );
 
-cat(test.bed, "\n");
 	    tbr <- read.table(test.bed, header=F)
 
   	    mat = read_genomic_data(gdm, as.data.frame(tbr[,1:3]), file.bw.plus, file.bw.minus, ncores=ncores)
@@ -64,9 +63,11 @@ cat(test.bed, "\n");
 
 	    gt.predict <- predict.run( gt.model, newdata=mat, decision.values=TRUE)
 	    scores  <- attr( gt.predict, "decision.values" )
-		tb_pred <- cbind(tbr[,c(1:6)], p_score=round(scores,4), p_status=gt.predict);
 
-		write.bed( tb_pred, file=file.ret.bed, compress=TRUE);
+		tb_pred <- cbind(tbr[,c(1:6)], p_score=round(scores,4), p_status=gt.predict);
+        tb_pred <- tb_pred[ tb_pred$p_status==1,,drop=F ]
+        if(NROW(tb_pred)>0)
+		   write.bed( tb_pred, file=file.ret.bed, compress=TRUE);
 
 		gc(reset=TRUE);
 	    return( 0 );
