@@ -5,32 +5,38 @@ Discriminative Transcription factor Occupancy eXtraction
 
 Online computational gateway
 -------------------------
-We provide a computational gateway to run dTOX on GPU server, the users don't need to install any software, only upload the bigWig files and wait for the results, it is simple and easy. Please click the link to try this site:
+We provide a computational gateway to run dTOX on a GPU server. This gateway allows users to upload bigWig files and download the results, without installing any software, making it simple and easy to find transcription factor binding patterns.
+
+Please click the link to try this site:
 
 https://dreg.dnasequence.org/
 
-In the online service, dTOX only provide the service for 4 mammals: (human/hg19, mouse/mm10). If your studies are not limited to these species, you have to install the dTOX pipeline and run your data locally. 
+On the online service, dTOX can only be run on hg19 and mm10. If your studies are not limited to these species, you can install the dTOX pipeline and run your data locally. 
 
 Before you run your data on the dREG gateway, please check the server status [here](https://github.com/Danko-Lab/dREG/blob/master/gateway-update.md).
 
 ![Hi](https://github.com/Danko-Lab/dTOX/raw/master/imgs/dreg-gateway.png?v=4&s=200 "dREG gateway")
 
-### Important note for the Exchange email users:
+### Important note for Exchange email users:
 
-The Exchange email system might quarantine all emails including the word  “password” or other sensitive stuffs in links. (https://technet.microsoft.com/en-us/library/aa997692(v=exchg.160).aspx).
+The Exchange email system might quarantine all emails including the word  “password” or other sensitive things in links. (https://technet.microsoft.com/en-us/library/aa997692(v=exchg.160).aspx).
 
 Unfortunately, some emails from dREG gateway are quarantined by this spam policy. Usually these quarantined emails are not delivered to the email box, so they can not be checked in any email folders, including junk, spam or inbox. If you find the emails from dREG gateway are not delivered into your email box, please conect the administrator of your email system. For the Cornell email, please check this link:
 
 https://it.cornell.edu/spam-control/log-quarantine-management-spam-control
 
-Abstract
+Summary
 --------
-Identification of the genomic regions that regulate transcription remains an important open problem.  We have recently shown that global run-on and sequencing (GRO-seq) with enrichment for 5-prime-capped RNAs reveals patterns of divergent transcription that accurately mark active transcriptional regulatory elements (TREs), including enhancers and promoters.  Here, we demonstrate that active TREs can be identified with comparable accuracy by applying sensitive machine-learning methods to standard GRO-seq and PRO-seq data, allowing TREs to be assayed together with transcription levels, elongation rates, and other transcriptional features, in a single experiment.  Our method, called discriminative Regulatory Element detection from GRO-seq (dREG), summarizes GRO-seq read counts at multiple scales and uses support vector regression to predict active TREs.  The predicted TREs are strongly enriched for marks associated with functional elements, including H3K27ac, transcription factor binding sites, eQTLs, and GWAS-associated SNPs.  Using dREG, we survey TREs in eight cell types and provide new insights into global patterns of TRE assembly and function. 
+Predicting transcription factor binding remains challenging due to high false positive rates, cell type specific differences in DNA recognition, and experimental bias. We developed a motif-based discriminative method, dTOX (discriminative Transcription factor Occupancy eXtraction), to predict transcription factor binding based on a single data type—either PRO-seq, ATAC-seq, or DNase-I-seq.
 
 Data preparation: 
 ==========================
 
-dTOX takes bigWig files with double strands for PRO-seq, ATAC-seq and DNase-I-seq, as the input. The bigWig files should follow 3 rules:
+dTOX takes bigWig files with double strands for PRO-seq, ATAC-seq and DNase-I-seq, as the input. 
+
+PRO-seq processing--
+
+The bigWig files should follow 3 rules:
 
 1) Each read is mapped at 5’ (GRO-seq) or 3’ (PRO-seq) position (point mode) , not mapped to a continuous region starting from 5’ or 3’.  This is different with the software Tfit.
 
@@ -40,6 +46,9 @@ dTOX takes bigWig files with double strands for PRO-seq, ATAC-seq and DNase-I-se
 
 As for how to generate bigWig files from fastq data, please refer to https://github.com/Danko-Lab/proseq2.0/.
 
+DNase-I-seq processing--
+
+ATAC-seq processing--
 
 Installation instructions: 
 ==========================
@@ -95,17 +104,11 @@ Pre-trained models that can be used to predict TF binding status across the geno
 Usage instructions:
 ===================
 
-dTOX provides one solutions to identify TF bound or unbound status for 3 sequence data,  PRO-seq, ATAC-seq, and DNase-I-seq. 
+dTOX provides a solution to identify TF binding status for 3 data types:  PRO-seq, ATAC-seq, and DNase-I-seq. 
 
-The first solution implemented in the early package, is to ***predict dREG scores*** and detect the broad dREG peaks with the aid of Perl program. In order to identify narrow peak, these broad peaks need to be refined using [dREG-HD package](https://github.com/Danko-Lab/dREG.HD).
+## 1) Motif calling for species other than hg19 and mm10:
 
-The second solution implements the ***peak calling*** function using the dREG scores based on the imporved SVR model. Compared with the broad peaks in the first solution, this solution generates the narrow peaks with peak score, probability, center position. Although this solution simplies the dREG process, it relies on GPU computing nodes to acceleratethe computational speed. If GPU computing resource is not available for you, please try our online computational gateway (https://dreg.dnasequence.org/). 
-
-In this section, we will introduce new solution following by old one.
-
-## 1) TFBS calling
-
-To use this solution, type: 
+Type: 
 
     bash run_rtfbsdb.bsh species cisbp_zip genome_2bit TFBS_output_dir [cpu_cores] 
 
@@ -122,7 +125,7 @@ How to download motif information from the CIS-BP database (http://cisbp.ccbr.ut
 
 ## 2) TF binding predict
 
-To use this solution, type: 
+Type:
 
     bash run_dTOX.bsh hg19 seq_type plus_strand_bw minus_strand_bw out_prefix gpu_cores cpu_cores
 
