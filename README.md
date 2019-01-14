@@ -23,17 +23,17 @@ dTOX takes bigWig files with double strands for PRO-seq, ATAC-seq and DNase-I-se
 
 #### PRO-seq processing--
 
-To generate bigWig files from fastq data, please refer to https://github.com/Danko-Lab/proseq2.0/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To generate bigWig files from fastq data, please refer to https://github.com/Danko-Lab/proseq2.0/
 
-To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/RunOnBamToBigWig/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/RunOnBamToBigWig/
 
 #### DNase-I-seq processing--
 
-&nbsp;&nbsp;&nbsp;To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/dnase/BamToBigWig
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/dnase/BamToBigWig
 
 ##### ATAC-seq processing--
 
-To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/atac/BamToBigWig
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/atac/BamToBigWig
 
 Online computational gateway
 ==========================
