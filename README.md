@@ -7,7 +7,7 @@ Summary
 Predicting transcription factor binding remains challenging due to high false positive rates, cell type specific differences in DNA recognition, and experimental bias. We developed a motif-based discriminative method, dTOX (discriminative Transcription factor Occupancy eXtraction), to predict transcription factor binding based on a single data type—either PRO-seq, ATAC-seq, or DNase-I-seq.
 
 Online computational gateway
--------------------------
+==========================
 We provide a computational gateway to run dTOX on a GPU server. This gateway allows users to upload bigWig files and download the results, without installing any software, making it simple and easy to find transcription factor binding patterns.
 
 Please click the link to try this site:
