@@ -1,5 +1,6 @@
-dTOX: Discriminative Transcription factor Occupancy eXtraction
+dTOX
 ===============
+Discriminative Transcription factor Occupancy eXtraction
 
 Summary
 --------
