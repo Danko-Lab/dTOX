@@ -44,11 +44,17 @@ The bigWig files should follow 3 rules:
 
 3) No normalization
 
-As for how to generate bigWig files from fastq data, please refer to https://github.com/Danko-Lab/proseq2.0/.
+To generate bigWig files from fastq data, please refer to https://github.com/Danko-Lab/proseq2.0/
+
+To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/RunOnBamToBigWig/
 
 DNase-I-seq processing--
 
+To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/dnase/BamToBigWig
+
 ATAC-seq processing--
+
+To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/atac/BamToBigWig
 
 Installation instructions: 
 ==========================
@@ -151,11 +157,6 @@ One file below is generated in this solution:
 **Notice:** 
 
 (1) That command takes 8~20 hours to execute on NVIDA K80 GPU using Rgtsvm package. Due to very long computational time, we don't suggest to run peak calling on CPU nodes, even in parallel mode.
-
-
-# Document
-
-dTOX is an R package, and that provides some additional flexibility for users familiar with R. Currently you can get details about each R function from the dREG manual (https://github.com/Danko-Lab/dREG/blob/master/dREG-manual.pdf).  We are actively working to document each function in the package.  
 
 How to cite
 ===================
