@@ -1,7 +1,9 @@
-dTOX
+dTOX: Discriminative Transcription factor Occupancy eXtraction
 ===============
 
-Discriminative Transcription factor Occupancy eXtraction
+Summary
+--------
+Predicting transcription factor binding remains challenging due to high false positive rates, cell type specific differences in DNA recognition, and experimental bias. We developed a motif-based discriminative method, dTOX (discriminative Transcription factor Occupancy eXtraction), to predict transcription factor binding based on a single data type—either PRO-seq, ATAC-seq, or DNase-I-seq.
 
 Online computational gateway
 -------------------------
@@ -24,10 +26,6 @@ The Exchange email system might quarantine all emails including the word  “pas
 Unfortunately, some emails from dREG gateway are quarantined by this spam policy. Usually these quarantined emails are not delivered to the email box, so they can not be checked in any email folders, including junk, spam or inbox. If you find the emails from dREG gateway are not delivered into your email box, please conect the administrator of your email system. For the Cornell email, please check this link:
 
 https://it.cornell.edu/spam-control/log-quarantine-management-spam-control
-
-Summary
---------
-Predicting transcription factor binding remains challenging due to high false positive rates, cell type specific differences in DNA recognition, and experimental bias. We developed a motif-based discriminative method, dTOX (discriminative Transcription factor Occupancy eXtraction), to predict transcription factor binding based on a single data type—either PRO-seq, ATAC-seq, or DNase-I-seq.
 
 Data preparation: 
 ==========================
@@ -56,7 +54,7 @@ ATAC-seq processing--
 
 To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/atac/BamToBigWig
 
-Installation instructions: 
+R package installation instructions: 
 ==========================
 
 The source code and models of dTOX will be availiable on GitHub (https://github.com/Danko-Lab/dTOX).  
