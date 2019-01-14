@@ -6,27 +6,7 @@ Summary
 --------
 Predicting transcription factor binding remains challenging due to high false positive rates, cell type specific differences in DNA recognition, and experimental bias. We developed a motif-based discriminative method, dTOX (discriminative Transcription factor Occupancy eXtraction), to predict transcription factor binding based on a single data type—either PRO-seq, ATAC-seq, or DNase-I-seq.
 
-Online computational gateway
-==========================
-We provide a computational gateway to run dTOX on a GPU server. This gateway allows users to upload bigWig files and download the results, without installing any software, making it simple and easy to find transcription factor binding patterns.
-
-Please click the link to try this site:
-
-https://dreg.dnasequence.org/
-
-On the online service, dTOX can only be run on hg19 and mm10. If your studies are not limited to these species, you can install the dTOX pipeline and run your data locally. 
-
-Before you run your data on the dREG gateway, please check the server status [here](https://github.com/Danko-Lab/dREG/blob/master/gateway-update.md).
-
-![Hi](https://github.com/Danko-Lab/dTOX/raw/master/imgs/dreg-gateway.png?v=4&s=200 "dREG gateway")
-
-### Important note for Exchange email users:
-
-The Exchange email system might quarantine all emails including the word  “password” or other sensitive things in links. (https://technet.microsoft.com/en-us/library/aa997692(v=exchg.160).aspx).
-
-Unfortunately, some emails from dREG gateway are quarantined by this spam policy. Usually these quarantined emails are not delivered to the email box, so they can not be checked in any email folders, including junk, spam or inbox. If you find the emails from dREG gateway are not delivered into your email box, please conect the administrator of your email system. For the Cornell email, please check this link:
-
-https://it.cornell.edu/spam-control/log-quarantine-management-spam-control
+dTOX is available to use in our online gateway for hg19 and mm10 or as a stand-alone R package for other genomes. Both implementations only require plus and minus strand bigWig files for PRO-seq, ATAC-seq, or DNase-I-seq data.
 
 Data preparation: 
 ==========================
@@ -54,6 +34,28 @@ To generate bigWig files from bam files, please refer to https://github.com/Dank
 ATAC-seq processing--
 
 To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/atac/BamToBigWig
+
+Online computational gateway
+==========================
+We provide a computational gateway to run dTOX on a GPU server. This gateway allows users to upload bigWig files and download the results, without installing any software, making it simple and easy to find transcription factor binding patterns.
+
+Please click the link to try this site:
+
+https://dreg.dnasequence.org/
+
+On the online service, dTOX can only be run on hg19 and mm10. If your studies are not limited to these species, you can install the dTOX pipeline and run your data locally. 
+
+Before you run your data on the dREG gateway, please check the server status [here](https://github.com/Danko-Lab/dREG/blob/master/gateway-update.md).
+
+![Hi](https://github.com/Danko-Lab/dTOX/raw/master/imgs/dreg-gateway.png?v=4&s=200 "dREG gateway")
+
+### Important note for Exchange email users:
+
+The Exchange email system might quarantine all emails including the word  “password” or other sensitive things in links. (https://technet.microsoft.com/en-us/library/aa997692(v=exchg.160).aspx).
+
+Unfortunately, some emails from dREG gateway are quarantined by this spam policy. Usually these quarantined emails are not delivered to the email box, so they can not be checked in any email folders, including junk, spam or inbox. If you find the emails from dREG gateway are not delivered into your email box, please conect the administrator of your email system. For the Cornell email, please check this link:
+
+https://it.cornell.edu/spam-control/log-quarantine-management-spam-control
 
 R package installation instructions: 
 ==========================
@@ -159,7 +161,7 @@ One file below is generated in this solution:
 
 How to cite
 ===================
-(1)  Identification of transcription factor binding patterns using genome-wide accessibility and transcription
+(1)  Choate LA, Wang Z, and Danko CG. Identification of transcription factor binding patterns using genome-wide accessibility and transcription. 2019.
 
 
 
