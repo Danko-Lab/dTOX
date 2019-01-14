@@ -13,25 +13,25 @@ Data preparation:
 
 dTOX takes bigWig files with double strands for PRO-seq, ATAC-seq and DNase-I-seq, as the input. 
 
-PRO-seq processing--
+#####The bigWig files should follow these rules:
 
-The bigWig files should follow 3 rules:
+1) Only positive values or only negative values in each strand, no mixture.
 
-1) Each read is mapped at 5’ (GRO-seq) or 3’ (PRO-seq) position (point mode) , not mapped to a continuous region starting from 5’ or 3’.  This is different with the software Tfit.
+2) No normalization.
 
-2) Only positive values or only negative values in each strand, no mixture.
+3) [PRO-seq only] Each read is mapped at 5’ (GRO-seq) or 3’ (PRO-seq) position (point mode) , not mapped to a continuous region starting from 5’ or 3’.  This is different with the software Tfit.
 
-3) No normalization
+#####PRO-seq processing--
 
 To generate bigWig files from fastq data, please refer to https://github.com/Danko-Lab/proseq2.0/
 
 To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/RunOnBamToBigWig/
 
-DNase-I-seq processing--
+#####DNase-I-seq processing--
 
 To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/dnase/BamToBigWig
 
-ATAC-seq processing--
+#####ATAC-seq processing--
 
 To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/atac/BamToBigWig
 
