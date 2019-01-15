@@ -31,7 +31,7 @@ dTOX takes bigWig files with double strands for PRO-seq, ATAC-seq and DNase-I-se
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/dnase/BamToBigWig
 
-##### ATAC-seq processing--
+#### ATAC-seq processing--
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/atac/BamToBigWig
 
