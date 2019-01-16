@@ -166,7 +166,7 @@ Type:
 
     bash run_rtfbsdb.bsh genome_id cisbp_zip genome_2bit TFBS_output_dir [cpu_cores] 
 
-    genome_id       -- genome id, such as hg19, mm10 
+    genome_id       -- any genome id rather than hg19 and mm10.
     cisbp_zip	    -- The zip file including motifs list and PWM file. (downloaded from cis-bp).
     genome_2bit     -- The 2 bit file of genome 
     TFBS_output_dir -- The path to output the TFBS bed files for each motif define in cisbp_zip
@@ -176,6 +176,9 @@ How to download motif information from the CIS-BP database (http://cisbp.ccbr.ut
 
 ![Hi](https://raw.githubusercontent.com/Danko-Lab/dTOX/master/imgs/cisbp-download.png?v=4&s=600 "Download from CIS-BP")
 
+The pipeline perform the following tasks and take a long time to finish it (>=48 hours)
+
+1) The script  load all motifs define in the zip file (downloaded from CIS-BP)  2) scans the whole genome file(genome_2bit) to get all TFBS and write into the output folder indicated by 'TFBS_output_dir'. 3) get the summary information of RTFBSDB score around 25 bp at both side 4) write the TFBS region and summary information into TFBS folder within this package, named "TFBS/motif_rtfbsdb_{genome_id}_ext".
 
 
 How to cite
