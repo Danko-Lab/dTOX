@@ -1,0 +1,29 @@
+#!/bin/bash
+
+dir_rtfbsdb=$1
+dir_ext=$2
+cpu_cores=$3
+
+zcat $dir_rtfbsdb/*.bed.gz > $dir_rtfbsdb/all-tfbs.bed
+
+awk 'BEGIN{OFS="\t"}{$5=sprintf("%.2f",$5); print $1,$2,$3,$4,$5}' $dir_rtfbsdb/all-tfbs.bed | sort-bed - > $dir_rtfbsdb/all-tfbs-sorted.bed
+
+rm $dir_rtfbsdb/all-tfbs.bed
+
+gather_score_range(){
+  gzbed=$(basename $1)
+  if [ ! -f $dit_ext/ext-${gzbed} ]; then
+    zcat $1 | awk 'BEGIN{OFS="\t"}{ $5=sprintf("%.2f",$5); print $1,$2,$3,$4,$5,$6}' - | sort-bed - | bedmap --echo --min --max --mean --range 25 --delim '\t' -  $dir_rtfbsdb/all-tfbs-sorted.bed  | gzip > $dir_ext/ext-${gzbed}
+  fi
+}
+
+motifs=(`find $dir_rtfbsdb -name "*bed.gz"`)
+
+for ((i = 0, end=${#motifs[@]}; i < end; i++ )); do
+echo ${motifs[$i]}
+    gather_score_range ${motifs[$i]} &
+    while [ $(ps -ef | grep bedmap | grep -v grep | wc -l) -gt $cpu_cores ]; do
+          sleep 10
+    done
+done
+

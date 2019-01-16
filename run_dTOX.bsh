@@ -4,7 +4,7 @@ if [ "$#" -lt 5 ]; then
     echo ""
     echo "USAGE: bash run_dTOX.bsh plus_strand_bw minus_strand_bw seq.type hg19 out_prefix gpu_cores cpu_cores"
     echo ""
-    echo "Species         -- Currently only hg19 and mm10"
+    echo "genome_id       -- Currently hg19 and mm10 are available by default."
     echo "Sequeue Type    -- ATAC-seq, DNASE-1-seq or PRO-seq "
     echo "plus_strand.bw  -- Seqence data (plus strand).  Read counts (not normalized) formatted as a bigWig file. "
     echo "minus_strand.bw -- Seqence data (minus strand). Read counts (not normalized) formatted as a bigWig file. "
@@ -19,7 +19,7 @@ pushd `dirname $0` > /dev/null
 bsh_path=`pwd`
 popd > /dev/null
 
-species=$1
+genome_id=$1
 seq_type=$2
 bwPlus=$3
 bwMinus=$4
@@ -39,5 +39,5 @@ fi
 
 out_file=${out_prefix}.dTOX.bound.bed.gz
 
-echo "Using: R --vanilla --slave --args $species $seq_type $bwPlus $bwMinus  $out_file $bsh_path $using_filter $gpu_cores $cpu_cores < $bsh_path/Rscript/run-dTOX.R > run-dTOX.log"
-R --vanilla --slave --args $species $seq_type $bwPlus $bwMinus $out_file $bsh_path $using_filter $gpu_cores $cpu_cores < $bsh_path/Rscript/run-dTOX.R > run-dTOX.log
+echo "Using: R --vanilla --slave --args $genome_id $seq_type $bwPlus $bwMinus  $out_file $bsh_path $using_filter $gpu_cores $cpu_cores < $bsh_path/Rscript/run-dTOX.R > run-dTOX.log"
+R --vanilla --slave --args $genome_id $seq_type $bwPlus $bwMinus $out_file $bsh_path $using_filter $gpu_cores $cpu_cores < $bsh_path/Rscript/run-dTOX.R > run-dTOX.log

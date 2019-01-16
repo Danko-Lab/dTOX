@@ -11,7 +11,7 @@ options("scipen"=100, "digits"=4)
 args <- commandArgs(trailingOnly=TRUE);
 
 ## Read arguments from main thread
-species            <- args[1];
+genome.id          <- args[1];
 seq.type           <- toupper(args[2]);
 file.bw.plus       <- args[3];
 file.bw.minus      <- args[4];
@@ -24,7 +24,7 @@ cpu.total          <- as.numeric(args[9])
 cat("bigWig plus=", file.bw.plus, "\n")
 cat("bigWig minus=", file.bw.minus , "\n")
 cat("Seq type=", seq.type, "\n")
-cat("Species=", species, "\n")
+cat("Genome ID=", genome.id, "\n")
 cat("Result path=", file.fullpath.ret, "\n")
 cat("Home path=", file.home.dtox,  "\n")
 cat("Filter=", if(using.filter)"YES" else "NO", "\n" );
@@ -206,13 +206,19 @@ cat("Bound motif count=", NROW(bed.bound), "\n");
 	rm(bed.bound);
 }	
 
-if (species!="hg19" && species!="mm10")
-   stop("Currently only hg19 and mm10 can be predicted.")
+if (genome.id!="hg19" && genome.id!="mm10")
+{
+   path.motif = paste0(file.home.dtox, "/TFBS/motif_rtfbsdb_",genome.id, "_ext");
+   if(!file.exists(path.motif))
+   {
+      stop(paste("Can not find ", path.motif));
+   }
+}
 
-if (species=="hg19")
+if (genome.id=="hg19")
    path.motif <- paste0(file.home.dtox, "/TFBS/motif_rtfbsdb_hg19_ext")
 
-if (species=="mm10")
+if (genome.id=="mm10")
    path.motif <- paste0(file.home.dtox, "/TFBS/motif_rtfbsdb_mm10_ext")
 	
 if (seq.type=="ATAC-SEQ")
