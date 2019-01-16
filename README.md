@@ -172,13 +172,13 @@ Type:
     TFBS_output_dir -- The path to output the TFBS bed files for each motif define in cisbp_zip
     cpu_cores       -- [optional, default=1] indicating how many CPU cores can be used.
 
-How to download motif information from the CIS-BP database (http://cisbp.ccbr.utoronto.ca/)
-
-![Hi](https://raw.githubusercontent.com/Danko-Lab/dTOX/master/imgs/cisbp-download.png?v=4&s=600 "Download from CIS-BP")
-
 The pipeline perform the following tasks and take a long time to finish it (>=48 hours)
 
 1) The script  load all motifs define in the zip file (downloaded from CIS-BP)  2) scans the whole genome file(genome_2bit) to get all TFBS and write into the output folder indicated by 'TFBS_output_dir'. 3) get the summary information of RTFBSDB score around 25 bp at both side 4) write the TFBS region and summary information into TFBS folder within this package, named "TFBS/motif_rtfbsdb_{genome_id}_ext".
+
+How to download motif information from the CIS-BP database (http://cisbp.ccbr.utoronto.ca/)
+
+![Hi](https://raw.githubusercontent.com/Danko-Lab/dTOX/master/imgs/cisbp-download.png?v=4&s=600 "Download from CIS-BP")
 
 
 How to cite
