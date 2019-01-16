@@ -59,7 +59,7 @@ PredictOnRtfbsdb <- function( def.ncores=4 )
 	    tbr <- read.table(test.bed, header=F)
 
   	    mat = read_genomic_data(gdm, as.data.frame(tbr[,1:3]), file.bw.plus, file.bw.minus, ncores=ncores)
-	    mat = cbind( mat, tbr[,4])
+	    mat = cbind( mat, tbr[,5])
 
 	    gt.predict <- predict.run( gt.model, newdata=mat, decision.values=TRUE)
 	    scores  <- attr( gt.predict, "decision.values" )
