@@ -167,7 +167,7 @@ Type:
     bash run_rtfbsdb.bsh genome_id cisbp_zip genome_2bit TFBS_output_dir [cpu_cores] 
 
     genome_id       -- any genome id rather than hg19 and mm10.
-    cisbp_zip	    -- The zip file including motifs list and PWM file. (downloaded from cis-bp).
+    cisbp_zip       -- The zip file including motifs list and PWM file. (downloaded from cis-bp).
     genome_2bit     -- The 2 bit file of genome 
     TFBS_output_dir -- The path to output the TFBS bed files for each motif define in cisbp_zip
     cpu_cores       -- [optional, default=1] indicating how many CPU cores can be used.
