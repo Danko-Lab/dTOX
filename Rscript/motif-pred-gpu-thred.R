@@ -26,18 +26,18 @@ file.path.result  <- args[9]
 
 write.bed<-function ( df.bed, file.bed, compress=FALSE, mkindex=FALSE )
 {
-	options("scipen"=100, "digits"=4);
-	temp <- tempfile(fileext=".bed");
-	write.table( df.bed, file=temp, quote=F, row.names=F, col.names=F, sep="\t");
-	if(compress) 
-	   system(paste0("sort-bed ", temp,  " | bgzip  > ",  file.bed ))
-	else
-	   system(paste0("sort-bed ", temp,  " > ",  file.bed ))
+    options("scipen"=100, "digits"=4);
+    temp <- tempfile(fileext=".bed");
+    write.table( df.bed, file=temp, quote=F, row.names=F, col.names=F, sep="\t");
+    if(compress) 
+       system(paste0("sort-bed ", temp,  " | bgzip  > ",  file.bed ))
+    else
+       system(paste0("sort-bed ", temp,  " > ",  file.bed ))
 
     if (mkindex)
         system(paste("tabix -p bed",file.bed));
     
-	invisible(unlink(temp));
+    invisible(unlink(temp));
 }
 
 get_ps_count<-function(ps.key)
@@ -46,36 +46,38 @@ get_ps_count<-function(ps.key)
    return(ret$V1[1]);
 }
 
-PredictOnRtfbsdb <- function( def.ncores=4 )
+PredictTFBS <- function( def.ncores=4 )
 {
-	Motif_predict <- function(file.motif, ncores)
-	{
-		test.bed <- file.motif;
-		file.ret.bed <- paste0(  substring(file.motif, 1, nchar(file.motif)-7), ".bound.gz" );
+    Motif_predict <- function(file.motif, ncores)
+    {
+        test.bed <- file.motif;
+        file.ret.bed <- paste0(  substring(file.motif, 1, nchar(file.motif)-7), ".bound.gz" );
 
-		if(file.exists( file.ret.bed ))
-			return( -1 );
+        if(file.exists( file.ret.bed ))
+            return( -1 );
 
-	    tbr <- read.table(test.bed, header=F)
+        tbr <- read.table(test.bed, header=F)
 
-  	    mat = read_genomic_data(gdm, as.data.frame(tbr[,1:3]), file.bw.plus, file.bw.minus, ncores=ncores)
-	    mat = cbind( mat, tbr[,5])
+          mat = read_genomic_data(gdm, as.data.frame(tbr[,1:3]), file.bw.plus, file.bw.minus, ncores=ncores)
+        mat = cbind( mat, tbr[,5])
 
-	    gt.predict <- predict.run( gt.model, newdata=mat, decision.values=TRUE)
-	    scores  <- attr( gt.predict, "decision.values" )
+        gt.predict <- predict.run( gt.model, newdata=mat, decision.values=TRUE)
+        scores  <- attr( gt.predict, "decision.values" )
 
-		tb_pred <- cbind(tbr[,c(1:6)], p_score=round(scores,4), p_status=gt.predict);
-        tb_pred <- tb_pred[ tb_pred$p_status==1,,drop=F ]
+        tb_pred <- cbind(tbr[,c(1:6)], p_score=round(scores,4), p_status=gt.predict);
+        #What is the threshold? or output all values
+        #tb_pred <- tb_pred[ tb_pred$p_status==1,,drop=F ]
+        tb_pred <- tb_pred[ tb_pred$p_score>0,,drop=F ]
         if(NROW(tb_pred)>0)
-		   write.bed( tb_pred, file=file.ret.bed, compress=TRUE);
+           write.bed( tb_pred, file=file.ret.bed, compress=TRUE);
 
-		gc(reset=TRUE);
-	    return( 0 );
-	}
+        gc(reset=TRUE);
+        return( 0 );
+    }
 
 
-	load(file.dtox.model)
-	gt.model <- predict.load(gt.model);
+    load(file.dtox.model)
+    gt.model <- predict.load(gt.model);
     
     task.last.row <- 0;
     repeat
@@ -90,35 +92,35 @@ PredictOnRtfbsdb <- function( def.ncores=4 )
 
         last.motif.item <- motif.files[NROW(motif.files)];
         motif.files.ends <- rep( if(last.motif.item=="END") "END" else "NA", gpu.total - NROW(motif.files)%%gpu.total );
-		motif.file.matrix <- matrix(c(motif.files, motif.files.ends), ncol=gpu.total, byrow=TRUE);
-		
-		task.motif.file <- motif.file.matrix[, gpu.idx];
-		if (NROW(task.motif.file) <= task.last.row )
-	    {
-	       if(last.motif.item=="END" )
-	          break
-	        else
-	          {Sys.sleep(60);next;}
-		}
-		
-		if( task.motif.file[ task.last.row + 1 ] == "END" )
-		    break;
-		
-		if( task.motif.file[ task.last.row + 1 ] == "NA" )
-	        {Sys.sleep(60);next;}
- 		
-		file.motif <- task.motif.file[ task.last.row + 1 ];
-		ncores <- def.ncores;
-        if( get_ps_count("RSOCKnode.R") < 8 )		
+        motif.file.matrix <- matrix(c(motif.files, motif.files.ends), ncol=gpu.total, byrow=TRUE);
+        
+        task.motif.file <- motif.file.matrix[, gpu.idx];
+        if (NROW(task.motif.file) <= task.last.row )
+        {
+           if(last.motif.item=="END" )
+              break
+            else
+              {Sys.sleep(60);next;}
+        }
+        
+        if( task.motif.file[ task.last.row + 1 ] == "END" )
+            break;
+        
+        if( task.motif.file[ task.last.row + 1 ] == "NA" )
+            {Sys.sleep(60);next;}
+         
+        file.motif <- task.motif.file[ task.last.row + 1 ];
+        ncores <- def.ncores;
+        if( get_ps_count("RSOCKnode.R") < 8 )        
            ncores <- def.ncores*2;   
-		Motif_predict(file.motif, ncores);
-		
-		task.last.row <- task.last.row + 1
+        Motif_predict(file.motif, ncores);
+        
+        task.last.row <- task.last.row + 1
     }
     
-	predict.unload(gt.model);
-	return();
+    predict.unload(gt.model);
+    return();
 }
 
 selectGPUdevice( gpu.devno );
-PredictOnRtfbsdb( def.ncores=4 );
+PredictTFBS( def.ncores=4 );
