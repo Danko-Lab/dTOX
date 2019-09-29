@@ -21,8 +21,8 @@ using.filter       <- as.logical(args[7]);
 gpu.total          <- as.numeric(args[8])
 cpu.total          <- as.numeric(args[9])
 
-file.fullpath.ret=paste( str.out.prefix, ".dTOX.bound.bed.gz")
-file.infp.ret=paste( str.out.prefix, ".infp.bed.gz")
+file.fullpath.ret=paste( str.out.prefix, ".dTOX.bound.bed.gz", sep="")
+file.infp.ret=paste( str.out.prefix, ".infp.bed.gz", sep="")
 
 cat("bigWig plus=", file.bw.plus, "\n")
 cat("bigWig minus=", file.bw.minus , "\n")
@@ -129,6 +129,7 @@ predict_dTOX <- function(file.bw.plus, file.bw.minus, file.dtox.model, file.filt
 cat("motif.list.table=", motif.list.table, "\n");    
 cat("infp file=", file.infp.bed, "\n");    
 cat("path of result=", path.result, "\n");    
+cat("File Infp=", file.infp.ret, "\n");    
 
     # invoke multiple thread running on GPU cores
     for(gpu in gpu.idx)
@@ -149,7 +150,7 @@ cat("path of result=", path.result, "\n");
     fun <- as.function(cpu.fun);
     environment(fun)<-globalenv();
     
-    motif.TFBS.count = 0;
+    motif.TFBS.count <<- 0;
     file.beds <- list.files(pattern = "\\.bed.gz$", path=path.motif);
     L0 <- lapply (1:ceiling(NROW(file.beds)/48), function(i)
     {
@@ -161,7 +162,7 @@ cat("path of result=", path.result, "\n");
         for (fs.pred in file.pred.beds) 
             if( fs.pred != "Error" && fs.pred != "None" )
             {
-                motif.TFBS.count = motif.TFBS.count + NROW(read.table(fs.pred));
+                motif.TFBS.count <<- motif.TFBS.count + NROW(read.table(fs.pred));
                 cat( fs.pred, "\n", file=motif.list.table, append=TRUE);
                 ret.code <- ret.code+1;
             } 

@@ -1,7 +1,7 @@
 write.bed<-function ( df.bed, file.bed, compress=FALSE, mkindex=FALSE )
 {
     options("scipen"=100, "digits"=4);
-    temp <- tempfile(fileext=".bed");
+    temp <- tempfile( tmpdir=".", fileext=".bed");
     write.table( df.bed, file=temp, quote=F, row.names=F, col.names=F, sep="\t");
     if(compress) 
        system(paste0("sort-bed ", temp,  " | bgzip  > ",  file.bed ))
