@@ -29,6 +29,15 @@ if(!file.exists(arg_genome_file))
 if(!file.exists(arg_output_dir))
 	stop( paste("Can't find the output folder(", arg_output_dir, ")"));
 
+make_bed<-function( df_bed, out_file)
+{
+    options(scipen=99, digits=4);
+    file.tmp <- tempfile(fileext=".bed");
+    write.table( df_bed, file=file.tmp, row.names=FALSE, col.names=FALSE, quote=FALSE, sep="\t");
+    system(paste( "sort-bed ", file.tmp, " | bgzip -f > ", out_file, ".gz", sep="") );
+    unlink(file.tmp)
+}
+
 require(rtfbsdb);
 
 file.twoBit_path <- arg_genome_file;
@@ -49,17 +58,21 @@ tf_info <- do.call("rbind", lapply(unique(tf_info$Motif_ID), function(x){
             return(data.frame(Motif_ID=x, TF_Name=as.character(tf_info[idx, "TF_Name"])))
         }));
 
-write.table(tf_info, file=paste0(arg_output_dir, "/", arg_species ".tf.info"), quote=F, row.names=F, col.names=F, sep="\t");
+write.table(tf_info, file=paste0(arg_output_dir, "/", arg_species, ".tf.info"), quote=F, row.names=F, col.names=F, sep="\t");
+
+cat("Total Motif_Type", NROW(tf_info), "\n");
 
 for (Motif_Type in df$Var1)
 {
+  cat("Scan TFBS site for Motif_Type=", Motif_Type, "\n");
+  
   if (!file.exists(paste0(arg_output_dir, "/", arg_species, "_Motif_Type_", Motif_Type, ".rdata")))
   {
-  tfs1 <- tfbs.createFromCisBP(db, motif_type=Motif_Type);
-  dScan <- tfbs.scanTFsite( tfs1, arg_genome_file, ncores=as.numeric(cpu_cores) );
-  save(dScan, file=paste0(arg_output_dir, "/", arg_species, "_Motif_Type_", Motif_Type, ".rdata") );
-  rm(dScan);
-  gc();
+    tfs1 <- tfbs.createFromCisBP(db, motif_type=Motif_Type);
+    dScan <- tfbs.scanTFsite( tfs1, arg_genome_file, ncores=as.numeric(cpu_cores) );
+    save(dScan, file=paste0(arg_output_dir, "/", arg_species, "_Motif_Type_", Motif_Type, ".rdata") );
+    rm(dScan);
+    gc();
   }
 }
 
@@ -68,16 +81,18 @@ for (Motif_Type in df$Var1)
 {
   if (file.exists(paste0(arg_output_dir, "/", arg_species, "_Motif_Type_", Motif_Type, ".rdata")))
   {
-    load( paste0(paste0(arg_output_dir, "/", arg_species, "_Motif_Type_", Motif_Type, ".rdata") ) ;
+    load( paste0(arg_output_dir, "/", arg_species, "_Motif_Type_", Motif_Type, ".rdata") ) ;
 
     for (i in 1:NROW(dScan$summary))
     {
-	    dScan.bed <- dScan$result[[i]];
-	    out_file <- paste0(arg_output_dir, "/", as.character(dScan$summary$Motif_ID[i]), ".bed");
-	    if(!file.exists(paste0(out_file, ".gz") ) )
-            make_bed( dScan.bed, out_file);
+       cat("Output bed filr for Motif_Type=", dScan$summary$Motif_ID[i], "\n");
+
+	   dScan.bed <- dScan$result[[i]];
+	   out_file <- paste0(arg_output_dir, "/", as.character(dScan$summary$Motif_ID[i]), ".bed");
+	   if(!file.exists(paste0(out_file, ".gz") ) )
+           make_bed( dScan.bed, out_file);
         
-        bed.count = bed.count + 1;
+       bed.count = bed.count + 1;
     }
   }
 }
