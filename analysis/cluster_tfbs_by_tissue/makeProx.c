@@ -5,10 +5,11 @@
 #include <string.h>
 #include <stdbool.h>
 
-static const char * file_name = "intersect_unique.tsv.gz";
+static const char * file_name = "intersect_unique_sort.tsv.gz";
 unsigned int nrow = 27108124;
 int ncol = 121;
-int k = 60;
+int k = 30;
+int maxRows = 1000000;
 
 #define LENGTH 0x2
 
@@ -17,7 +18,7 @@ inline int dist(int row1, int row2, bool **data) { // Manhattan distance between
  for(i=0;i<ncol;i++) {
   xor+= data[row1][i] ^  data[row2][i];
  }
- if(xor >= 5) return -1;
+ if(xor >= 10) return -1;
 
  int and=0,or=0; // MUCH Faster to keep these conditions separate.
  for(i=0;i<ncol;i++) {
@@ -30,7 +31,18 @@ inline int dist(int row1, int row2, bool **data) { // Manhattan distance between
  return( ((float)and/(float)or >= 0.6)?xor:-1 ); // If 3/4 match in two nodes w/ 4
 }
 
-int main() {
+int main(int argc, char** argv) {
+ // Start/ end at specific places?
+ int l_start, l_end;
+ if(argc == 3) {
+  l_start = atoi(argv[1]);
+  l_end   = atoi(argv[2]);
+ }
+ else {
+  l_start = 0;
+  l_end   = nrow;
+ }
+
  // Allocate memory for the large matrix. It will fit as a bool.
  int i,j;
  bool **data = (bool **)malloc(nrow * sizeof(bool*));//[ncol];// [27108124][121];
@@ -52,11 +64,13 @@ int main() {
  }
 
  // Calculate the minimum distance between rows, and return the row with the minimum distance.
- int d, count;
+ int d, count, end;
 
- for(j=0;j<nrow;j++) {
+// for(j=0;j<nrow;j++) {
+  for(j=l_start;j<l_end;j++) {
   count = 1;
-  for(i=j;i<nrow;i++) {// Go through j .. nrow
+  end = ( nrow < (j+maxRows) )?nrow:(j+maxRows);
+  for(i=j;i<end;i++) {// Go through j .. nrow
    d = dist(j, i, data);
    if(d>=0) { // d>0 prevents reporting connections to self. >=0 reports self connections.
      printf("%d\t%d\t%d\n", j, i, d);
