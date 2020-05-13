@@ -10,11 +10,11 @@
 
 int make_test_data(dataset_t* data, int n, int d)
 {
-    data->values = malloc((sizeof(float*) * n) + (n * d * sizeof(float)));
+    data->values = malloc((sizeof(bool*) * n) + (n * d * sizeof(bool)));
     if (!(data->values)) return 1;
 
     for (int i = 0; i < n; i++) {
-        data->values[i] = (float*)(data->values + n) + i * d;
+        data->values[i] = (bool*)(data->values + n) + i * d;
         for (int j = 0; j < d; j++) {
             data->values[i][j] = 1; //(float)rand() / 100000000.f;
         }
@@ -68,7 +68,7 @@ int nn_update(vec_t* h, node_t* node)
     return 1;
 }
 
-vec_t* nn_descent(dataset_t data, float(*metric)(float*, float*, int), int k, float rho, float delta)
+vec_t* nn_descent(dataset_t data, float(*metric)(bool*, bool*, int), int k, float rho, float delta)
 {
     if (k >= data.size) {
         printf("error: neighborhood size must be less than dataset size\n");

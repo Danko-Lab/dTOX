@@ -15,7 +15,7 @@ int k = 10;
 
 #define LENGTH 0x2
 
-float jaccard(float* row1, float* row2, int d) { // Manhattan distance between row1 and row2.
+float jaccard(bool* row1, bool* row2, int d) { // Manhattan distance between row1 and row2.
 
  int and=0,or=0; // MUCH Faster to keep these conditions separate.
  for(int i=0;i<d;i++) {
@@ -26,8 +26,8 @@ float jaccard(float* row1, float* row2, int d) { // Manhattan distance between r
  return( 1.0f - (float)and/(float)or ); // If 3/4 match in two nodes w/ 4
 }
 
-float read_data(dataset_t* data) {
- data->values = malloc((sizeof(float*) * nrow) + (nrow * ncol * sizeof(float)));
+int read_data(dataset_t* data) {
+ data->values = malloc((sizeof(bool*) * nrow) + (nrow * ncol * sizeof(bool)));
  data->size = nrow;
  data->dim = ncol;
 
@@ -39,7 +39,7 @@ float read_data(dataset_t* data) {
  unsigned char buffer[LENGTH];
 
  for(int i=0;i<nrow;i++) {
-  data->values[i] = (float*) (data->values + data->size) + i * data->dim;
+  data->values[i] = (bool*) (data->values + data->size) + i * data->dim;
   for(int j=0;j<ncol;j++) {
    bytes_read = gzread (uniq_file, buffer, LENGTH); // Read two bytes: [0 || 1] and [\t || \n].
    buffer[1] = '\0'; // Set whitespace to string terminator.
