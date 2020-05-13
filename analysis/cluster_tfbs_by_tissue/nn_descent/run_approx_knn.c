@@ -43,7 +43,7 @@ int read_data(dataset_t* data) {
   for(int j=0;j<ncol;j++) {
    bytes_read = gzread (uniq_file, buffer, LENGTH); // Read two bytes: [0 || 1] and [\t || \n].
    buffer[1] = '\0'; // Set whitespace to string terminator.
-   data->values[i][j] = atof(buffer); // Not best practice, but seems to work.
+   data->values[i][j] = atoi(buffer); // Not best practice, but seems to work.
   }
  }
 
