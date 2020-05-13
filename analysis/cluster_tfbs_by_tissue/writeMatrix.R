@@ -1,7 +1,9 @@
+maxSum = 20000; min_elem = 50
+
 ## Get those clusters with more than 1 entry
 tab <- read.table("graph.tree.L9.gz")
 tab_fact <- as.factor(tab$V2)
-tab_fact <- data.frame(summary(tab_fact)[summary(tab_fact)>1])
+tab_fact <- data.frame(summary(tab_fact, maxsum=maxSum)[summary(tab_fact, maxsum=maxSum)>min_elem])
 tab_fact = data.frame(cluster= rownames(tab_fact), number= tab_fact[1])
 tab_fact <- tab_fact[-NROW(tab_fact),] ## Remove (other)
 indx <- as.integer(as.character(tab_fact[,1]))
@@ -73,14 +75,13 @@ for(i in indx) {
 plot_mat <- mat[plot_mat,]
 
 ## Produce a distance matrix with a better distance function.
-dist.fun <- function(matr, origin, target) {
-# sum(xor(matr[,origin], matr[,target])) / (sum((matr[,origin] & matr[,target])) + sum(xor(matr[,origin], matr[,target])))
- sum((matr[,origin] | matr[,target])) / sum((matr[,origin] & matr[,target]))-1
-}
-umap.settings <- umap.defaults
-umap.settings$metric <- dist.fun #"manhattan"
+require(philentropy)
+D <- distance(plot_mat, "jaccard")
 
-um <- umap(plot_mat, config= umap.settings)
+umap.settings <- umap.defaults
+umap.settings$input <- "dist"
+
+um <- umap(D, config= umap.settings)
 
 n <- NROW(indx)
 qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
@@ -89,8 +90,9 @@ cols <- SetAlpha(cols, alpha=0.5)
 
 
 png("~/transfer/Tfbs-UMAP.png", width=750, height=750)
- cols <- sample(colors(), NROW(indx))
- plot(y= um$layout[,1], x= um$layout[,2], col=cols[as.integer(as.factor(plot_key))], pch=19, xlab="UMAP2", ylab="UMAP1", cex=1)
+# cols <- sample(colors(), NROW(indx))
+# plot(y= um$layout[,1], x= um$layout[,2], col=cols[as.integer(as.factor(plot_key))], pch=19, xlab="UMAP2", ylab="UMAP1", cex=1)
+ plot(y= um$layout[,1], x= um$layout[,2], col=rgb(0,0,0,0.1), pch=19, xlab="UMAP2", ylab="UMAP1", cex=1)
 dev.off()
 
 

@@ -8,15 +8,12 @@ import gzip
 ## Constants
 k = 10
 
-# Uniform random distribution
-uniform_N = np.random.random((10000, 4))
+mat = np.loadtxt("intersect_unique.tsv.gz", dtype="bool")
+#mat = np.loadtxt("intersect_all_first_10k.tsv.gz", dtype="bool")
 
-#mat = np.loadtxt("intersect_unique.tsv.gz", dtype="bool")
-mat = np.loadtxt("intersect_all_first_10k.tsv.gz", dtype="bool")
-
-## Jaccard distance.
-distance.jaccard(mat[1], mat[1])
-distance.jaccard(mat[1], mat[2])
+## Jaccard distance. Sanity check. Look pretty resonable.
+#distance.jaccard(mat[1], mat[1])
+#distance.jaccard(mat[1], mat[2])
 
 ## Fit the kNN. Using Ball Tree algorithm and Jaccard distance.
 nn= NearestNeighbors(n_neighbors = k, algorithm='ball_tree', metric='jaccard')
