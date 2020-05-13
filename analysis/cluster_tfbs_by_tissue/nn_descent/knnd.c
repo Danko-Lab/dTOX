@@ -16,7 +16,7 @@ int make_test_data(dataset_t* data, int n, int d)
     for (int i = 0; i < n; i++) {
         data->values[i] = (float*)(data->values + n) + i * d;
         for (int j = 0; j < d; j++) {
-            data->values[i][j] = (float)rand() / 100000000.f;
+            data->values[i][j] = 1; //(float)rand() / 100000000.f;
         }
     }
 
