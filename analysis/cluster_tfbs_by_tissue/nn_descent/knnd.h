@@ -5,7 +5,7 @@
 // TODO: maybe use bit flags for bool argument in sample_neighbors?
 
 typedef struct {
-    int size;
+    unsigned int size;
     int dim;
     bool** values; // be sure to cast to float or double types
 } dataset_t;

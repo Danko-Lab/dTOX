@@ -9,7 +9,7 @@
 
 static const char * file_name = "intersect_unique_sort.tsv.gz";
 static const char * out_file_name = "knnd_table.tsv.gz";
-/*unsigned*/ int nrow = 1000;// 27108124; // Test on a smaller dataset.
+unsigned int nrow = 1000;// 27108124; // Test on a smaller dataset.
 int ncol = 121;
 int k = 10;
 
