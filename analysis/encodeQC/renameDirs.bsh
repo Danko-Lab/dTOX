@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+# This script was used to rename folders to #, rather than tissue#
+
+for i in `ls -d */`
+do
+ i=`echo $i | sed 's/.$//'`
+ num=`echo $i | sed 's/brain//g'`
+ mv $i $num
+ echo $i $num
+done
+

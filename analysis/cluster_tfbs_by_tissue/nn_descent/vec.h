@@ -9,7 +9,7 @@ typedef struct {
 } node_t;
 
 typedef struct {
-    int size, _capacity;
+    unsigned int size, _capacity;
     float min;
     node_t* arr;
 } vec_t;

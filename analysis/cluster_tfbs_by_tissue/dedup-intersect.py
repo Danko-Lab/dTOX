@@ -2,10 +2,10 @@
 import sys
 import gzip
 
-in_file = gzip.open('intersect_final.bed.gz')
+in_file = gzip.open('intersect_final.bed.gz', 'rt') # 'rt'
 
-out_unique = gzip.open('intersect_unique.tsv.gz', 'wb')
-out_IDgroup= gzip.open('intersect_identity_group.tsv.gz', 'wb') # This is 0-base line # in intersect_unique.
+out_unique = gzip.open('intersect_unique-rt.tsv.gz', 'wt')
+out_IDgroup= gzip.open('intersect_identity_group-rt.tsv.gz', 'wt') # This is 0-base line # in intersect_unique.
 
 ## New dictionary.
 count = 0

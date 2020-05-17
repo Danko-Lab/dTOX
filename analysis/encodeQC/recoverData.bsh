@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+rsync -rav -e ssh cgd24@labstorage:/share/homes/ayh8/encode_dnase /home/danko_0001/projects/lac334/encode_bw
