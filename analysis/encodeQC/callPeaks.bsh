@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+
+for i in `ls -d */`
+do
+ i=`echo $i | sed 's/.$//'`
+ cd $i
+
+ for j in `ls -d */`
+ do 
+  j=`echo $j | sed 's/.$//'`
+  echo ${i}${j}
+ done
+
+ cd ..
+done
+
+
