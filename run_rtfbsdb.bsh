@@ -33,4 +33,6 @@ echo "Using: R --vanilla --slave --args $genome_id $cisbp $genome_file $output_d
 
 R --vanilla --slave --args $bsh_path $genome_id $cisbp $genome_file $output_dir $cpucores < $bsh_path/Rscript/run-rtfbsdb.R
 
-bash parallel_tfbs_ext.bsh $output_dir $bsh_path/TFBS/motif_rtfbsdb_${genome_id}_ext $cpucores
+mkdir -p $output_dir/tfbs_ext
+
+bash parallel_tfbs_ext.bsh $output_dir $output_dir/tfbs_ext $cpucores
