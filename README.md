@@ -32,7 +32,7 @@ Unfortunately, some emails from dREG gateway are quarantined by this spam policy
 https://it.cornell.edu/spam-control/log-quarantine-management-spam-control
 
 
-2. Data preparation: 
+2. Data preparation:
 ---------------
 
 dTOX takes bigWig files with double strands for PRO-seq, ATAC-seq and DNase-I-seq, as the input. 
@@ -60,7 +60,7 @@ dTOX takes bigWig files with double strands for PRO-seq, ATAC-seq and DNase-I-se
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To generate bigWig files from bam files, please refer to https://github.com/Danko-Lab/utils/tree/master/atac/BamToBigWig
 
 
-3. R package installation instructions: 
+3. R package installation instructions:
 ---------------
 
 The source code and models of dTOX will be availiable on GitHub (https://github.com/Danko-Lab/dTOX).  
