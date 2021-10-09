@@ -1,10 +1,12 @@
 dTOX
 ===============
+
 Discriminative Transcription factor Occupancy eXtraction
 
 Predicting transcription factor binding remains challenging due to high false positive rates, cell type specific differences in DNA recognition, and experimental bias. We developed a motif-based discriminative method, dTOX (discriminative Transcription factor Occupancy eXtraction), to predict transcription factor binding based on a single data type—either PRO-seq, ATAC-seq, or DNase-I-seq.
 
 dTOX is available to use in our online gateway for hg19 and mm10 or as a stand-alone R package for other genomes. Both implementations only require plus and minus strand bigWig files for PRO-seq, ATAC-seq, or DNase-I-seq data.
+
 
 1. Cloud Computing Service:
 ---------------
@@ -28,6 +30,7 @@ The Exchange email system might quarantine all emails including the word  “pas
 Unfortunately, some emails from dREG gateway are quarantined by this spam policy. Usually these quarantined emails are not delivered to the email box, so they can not be checked in any email folders, including junk, spam or inbox. If you find the emails from dREG gateway are not delivered into your email box, please conect the administrator of your email system. For the Cornell email, please check this link:
 
 https://it.cornell.edu/spam-control/log-quarantine-management-spam-control
+
 
 2. Data preparation: 
 ---------------
