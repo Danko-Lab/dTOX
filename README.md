@@ -67,6 +67,7 @@ The source code and models of dTOX will be availiable on GitHub (https://github.
 
 3.1 Supported OS:
 ---------
+
 Linux and Mac OSX are currently supported.
 
 3.2 Required software
