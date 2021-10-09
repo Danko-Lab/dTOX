@@ -7,7 +7,8 @@ Predicting transcription factor binding remains challenging due to high false po
 dTOX is available to use in our online gateway for hg19 and mm10 or as a stand-alone R package for other genomes. Both implementations only require plus and minus strand bigWig files for PRO-seq, ATAC-seq, or DNase-I-seq data.
 
 1. Cloud Computing Service:
---------
+---------------
+
 We provide a computational gateway to run dTOX on a GPU server. This gateway allows users to upload bigWig files and download the results, without installing any software, making it simple and easy to find transcription factor binding patterns.
 
 Please click the link to try this site:
@@ -29,7 +30,7 @@ Unfortunately, some emails from dREG gateway are quarantined by this spam policy
 https://it.cornell.edu/spam-control/log-quarantine-management-spam-control
 
 2. Data preparation: 
-----------
+---------------
 
 dTOX takes bigWig files with double strands for PRO-seq, ATAC-seq and DNase-I-seq, as the input. 
 
@@ -57,16 +58,17 @@ dTOX takes bigWig files with double strands for PRO-seq, ATAC-seq and DNase-I-se
 
 
 3. R package installation instructions: 
-----------
+---------------
 
 The source code and models of dTOX will be availiable on GitHub (https://github.com/Danko-Lab/dTOX).  
 
 3.1 Supported OS:
--------------
+---------
 Linux and Mac OSX are currently supported.
 
 3.2 Required software
------------------
+---------
+
 * bedops (http://bedops.readthedocs.org/en/latest/index.html)
 * R (http://www.r-project.org/)
 * bigWig R package (https://github.com/andrelmartins/bigWig; will be public very soon).
@@ -85,7 +87,8 @@ dTOX also has several dependencies within R. These include **data.table**, **e10
 If users run into any problems they should contact the package author for assistance.
 
 3.3 Install dTOX
-------------
+---------
+
 Users should change to the directory containing this README.md file, and can then install dTOX by typing the following:
 
 (1a) Install R dependencies
@@ -102,13 +105,14 @@ Users should change to the directory containing this README.md file, and can the
 
 
 3.4 Get the dTOX models
--------------------
+---------
+
 Pre-trained models that can be used to predict TF binding status across the genome are availiable in mammals. Download the newest models and TFBS data set from here:
 <span style="color:blue"> *ftp://cbsuftp.tc.cornell.edu/danko/hub/dTOX/* </span>
 
 
 4 Usage instructions:
------------------
+---------------
 
 dTOX provides a solution to identify TF binding status for 3 data types:  PRO-seq, ATAC-seq, and DNase-I-seq. 
 
@@ -187,7 +191,8 @@ How to download motif information from the CIS-BP database (http://cisbp.ccbr.ut
 
 
 5 How to cite
------------
+---------------
+
 (1)  Choate LA, Wang Z, and Danko CG. Identification of transcription factor binding patterns using genome-wide accessibility and transcription. 2019.
 
 
